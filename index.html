@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissor Game</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="lSide">
+      <h3>How many rounds you like to play?</h3>
+      <div class="underline"></div>
+      <div class="rounds">
+        <input type="radio" name="rounds" id="roundsFour" onchange="changeRounds()" checked>
+        <label for="">4 Rounds<br></label>
+        <input type="radio" name="rounds" id="roundsFive" onchange="changeRounds()">
+        <label for="">5 Rounds<br></label>
+        <input type="radio" name="rounds" id="roundsSix" onchange="changeRounds()">
+        <label for="">6 Rounds<br></label>
+        <div>
+          <input type="radio" name="rounds" id="roundsCostum" onchange="changeRounds()">
+          <input type="number" id="txt-costumRounds" value="10" onchange="changeRounds()">
+          <label for="">Costum Rounds<br></label>
+        </div>
+      </div>
+      </select>
+    </div>
+    <div class="rtSide">
+      <h1 id="counter">4 / 4</h1>
+      <p id="result">Press Start to play a Game</p>
+    </div>
+    <div class="rbSide">
+      <input type="number" name="" id="guess" value="0">
+      <div id="guess-container">
+        <a href="" onclick="guess()"><img src="assets/img/hand-rock-regular.svg" alt=""></a>
+        <a href="" onclick="guess()"><img src="assets/img/hand-paper-regular.svg" alt=""></a>
+        <a href="" onclick="guess()"><img src="assets/img/hand-scissors-regular.svg" alt=""></a>
+      </div>
+      <button id="start" onclick="start()">start</button>
+    </div>
+  </div>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
