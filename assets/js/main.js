@@ -90,7 +90,7 @@ function guess(input) {
         //0 = Rock
         //1 = paper
         //2 = scissor
-        //maybe switch next time
+        //maybe switch next time for readability and performance at bigger code
         if (input == 0) {
             if (game.target == 2) {
                 game.wins++;
