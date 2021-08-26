@@ -6,6 +6,14 @@ function getId(element) {
     return document.getElementById(element);
 }
 
+//change rounds
+function changeRounds() {
+    if (!game.running) {
+        readRounds();
+        writeResult("Press Start to play a Game");
+    }
+}
+
 //read rounds from page
 function readRounds() {
 
@@ -36,7 +44,7 @@ function readRounds() {
     };
 
     do {
-        game.target = (Math.random() * 10 / 3).toFixed(0);
+        game.target = (Math.random() * 10 / 3.3333).toFixed(0);
     } while (game.target == 0);
 
     if (game.running == false) game.round = game.rounds;
@@ -49,10 +57,21 @@ function writeResult(result) {
     getId("result").innerHTML = `${result}`;
 }
 
+//response on guess button with blink
+function flash(id, color) {
+
+    let target = document.getElementById(id);
+
+    if(target.style.backgroundColor == "lightgrey" || target.style.backgroundColor == ""){
+        setTimeout(() => {target.style.backgroundColor = color}, 300);
+        setTimeout(() => {target.style.backgroundColor = "lightgrey"}, 900);
+    }else{
+        target.style.backgroundColor = "lightgrey";
+    }
+}
+
 //read input and take a guess
 function guess(input) {
-
-    game.round--;
 
     if (game.round == 0) {
         writeResult("Game is over, press restart for another try");
@@ -61,6 +80,9 @@ function guess(input) {
         return;
     }
 
+    game.round--;
+
+
     if (game.running) {
 
         readRounds();
@@ -68,38 +90,44 @@ function guess(input) {
         //0 = Rock
         //1 = paper
         //2 = scissor
+        //maybe switch next time
         if (input == 0) {
             if (game.target == 2) {
                 game.wins++;
                 writeResult("win");
+                flash("rock", "green");
             } else if (game.target == 1) {
                 writeResult("lose");
+                flash("rock", "red");
             } else {
                 writeResult("draw");
+                flash("rock", "yellow");
             }
         } else if (input == 1) {
             if (game.target == 1) {
                 game.wins++;
                 writeResult("win");
+                flash("paper", "green");
             } else if (game.target == 2) {
                 writeResult("lose");
+                flash("paper", "red");
             } else {
                 writeResult("draw");
+                flash("paper", "yellow");
             }
         } else if (input == 2) {
             if (game.target == 1) {
                 game.wins++;
                 writeResult("win");
+                flash("scissor", "green");
             } else if (game.target == 0) {
                 writeResult("lose");
+                flash("scissor", "red");
             } else {
                 writeResult("draw");
+                flash("scissor", "yellow");
             }
         }
-
-    } else if(game.running == false && game.round > 0){
-        readRounds();
-        writeResult("Game not started, Press the Play Button");
     }
 }
 
@@ -108,8 +136,8 @@ function start() {
 
     if (game.running) {
         readRounds();
+        game.round = game.rounds;
         writeResult("Game restarted");
-        game.round = 0;
     } else {
         readRounds();
         writeResult("Game started");
