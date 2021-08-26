@@ -31,14 +31,14 @@
     </div>
     <div class="rtSide">
       <h1 id="counter">4 / 4</h1>
+      <h2 id="matchResult">You have won 0 / 4 rounds</h2>
       <p id="result">Press Start to play a Game</p>
     </div>
     <div class="rbSide">
-      <input type="number" name="" id="guess" value="0">
       <div id="guess-container">
-        <a href="" onclick="guess()"><img src="assets/img/hand-rock-regular.svg" alt=""></a>
-        <a href="" onclick="guess()"><img src="assets/img/hand-paper-regular.svg" alt=""></a>
-        <a href="" onclick="guess()"><img src="assets/img/hand-scissors-regular.svg" alt=""></a>
+        <input type="image" src="assets/img/hand-rock-regular.svg" alt="" onclick="guess(0)">
+        <input type="image" src="assets/img/hand-paper-regular.svg" alt="" onclick="guess(1)">
+        <input type="image" src="assets/img/hand-scissors-regular.svg" alt="" onclick="guess(2)">
       </div>
       <button id="start" onclick="start()">start</button>
     </div>

@@ -1,22 +1,16 @@
 //vars
-let game = { input: 0, rounds: 0, round: 0, target: 0, running: false };
-let output = ["Result:<br>"];
+let game = { input: 0, rounds: 0, round: 0, target: 0, running: false, wins: 0 };
 
 //helper
 function getId(element) {
     return document.getElementById(element);
 }
 
-function checkValidInput() {
-    return game.input > 0 && game.input < 101;
-}
-
 //change rounds
 function changeRounds() {
     if (!game.running) {
         readRounds();
-        output[1] = "Press Start to play a Game"
-        writeResult(true);
+        writeResult("Press Start to play a Game");
     }
 }
 
@@ -48,75 +42,89 @@ function readRounds() {
             }
         }
     };
-    game.round = game.rounds;
+
+    do {
+        game.target = (Math.random() * 10 / 3).toFixed(0);
+    } while (game.target == 0);
+
+    if (game.running == false) game.round = game.rounds;
 }
 
-//write rounds remain and play log to result
+//write rounds remain and win, loose or draw
 function writeResult(result) {
-    //store output array backwards
-    let reverse = output.slice().reverse();
-
     getId("counter").innerHTML = `${game.round} / ${game.rounds}`;
-
-    if (result == true) {
-        getId("result").innerHTML = `${output[1]}<br>`;
-    } else {
-        getId("result").innerHTML = `${reverse.pop()}<br>`;
-        reverse.forEach(element => {
-            getId("result").innerHTML += `${element}<br>`;
-        });
-    }
+    getId("matchResult").innerHTML = `You have won ${game.wins} / ${game.rounds} rounds`;
+    getId("result").innerHTML = `${result}`;
 }
+
+
 
 //read input and take a guess
-function guess() {
+function guess(input) {
 
-    game.input = Number(getId("guess").value);
+    game.round--;
 
-    if (game.running && checkValidInput()) {
+    if (game.round == 0) {
+        writeResult("Game is over, press restart for another try");
+        game.wins = 0
+        game.running = false;
+        return;
+    }
 
-        game.round--;
-        if (game.input < game.target) {
-            output.push(`${game.input} is to Low - Next Try`);
-            writeResult(false);
-        } else if (game.input > game.target) {
-            output.push(`${game.input} is to high - Next Try`);
-            writeResult(false);
-        } else if (game.input == game.target) {
-            output[1] = "WIN - Try Again";
-            game.running = false;
-            writeResult(true);
-        } 
-        if (game.round == 0) {
-            output[1] = "Loose - Try Again";
-            game.running = false;
-            writeResult(true);
+    if (game.running) {
+
+        readRounds();
+
+        //0 = Rock
+        //1 = paper
+        //2 = scissor
+        if (input == 0) {
+            if (game.target == 2) {
+                game.wins++;
+                writeResult("win");
+            } else if (game.target == 1) {
+                writeResult("lose");
+            } else {
+                writeResult("draw");
+            }
+        } else if (input == 1) {
+            if (game.target == 1) {
+                game.wins++;
+                writeResult("win");
+            } else if (game.target == 2) {
+                writeResult("lose");
+            } else {
+                writeResult("draw");
+            }
+        } else if (input == 2) {
+            if (game.target == 1) {
+                game.wins++;
+                writeResult("win");
+            } else if (game.target == 0) {
+                writeResult("lose");
+            } else {
+                writeResult("draw");
+            }
         }
-        
-    } else if (game.running) {
-        output.push(`Choose a Number between 1 and 100`);
-        writeResult(false);
-    } else {
-        output[1] = `Game not started, Press the Play Button`
-        getRounds();
-        writeResult(true);
+
+    } else if(game.running == false && game.round > 0){
+        readRounds();
+        writeResult("Game not started, Press the Play Button");
     }
 }
 
 //start/restart game
 function start() {
 
-    game.input = Number(getId("guess").value);
-
     if (game.running) {
-        output[1] = `Game restarted, take a guess`;
         readRounds();
+        writeResult("Game restarted");
+        game.round = 0;
     } else {
-        output[1] = `Game started, take a guess`;
         readRounds();
+        writeResult("Game started");
+        game.wins = 0;
         game.running = true;
-        getId("start").innerHTML = "restart"
+        getId("start").innerHTML = "restart";
     }
-    writeResult(true);
-    output = ["Result:<br>"];
 }
