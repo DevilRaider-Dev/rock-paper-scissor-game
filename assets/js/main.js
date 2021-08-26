@@ -6,14 +6,6 @@ function getId(element) {
     return document.getElementById(element);
 }
 
-//change rounds
-function changeRounds() {
-    if (!game.running) {
-        readRounds();
-        writeResult("Press Start to play a Game");
-    }
-}
-
 //read rounds from page
 function readRounds() {
 
@@ -56,8 +48,6 @@ function writeResult(result) {
     getId("matchResult").innerHTML = `You have won ${game.wins} / ${game.rounds} rounds`;
     getId("result").innerHTML = `${result}`;
 }
-
-
 
 //read input and take a guess
 function guess(input) {
