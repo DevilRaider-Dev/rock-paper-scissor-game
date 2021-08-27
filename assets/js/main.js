@@ -44,7 +44,7 @@ function readRounds() {
     };
 
     do {
-        game.target = (Math.random() * 10 / 3.3333).toFixed(0);
+        game.target = (Math.random() / 3.3333 * 10).toFixed(0);
     } while (game.target == 0);
 
     if (game.running == false) game.round = game.rounds;
@@ -62,10 +62,10 @@ function flash(id, color) {
 
     let target = document.getElementById(id);
 
-    if(target.style.backgroundColor == "lightgrey" || target.style.backgroundColor == ""){
-        setTimeout(() => {target.style.backgroundColor = color}, 300);
-        setTimeout(() => {target.style.backgroundColor = "lightgrey"}, 900);
-    }else{
+    if (target.style.backgroundColor == "lightgrey" || target.style.backgroundColor == "") {
+        setTimeout(() => { target.style.backgroundColor = color }, 300);
+        setTimeout(() => { target.style.backgroundColor = "lightgrey" }, 900);
+    } else {
         target.style.backgroundColor = "lightgrey";
     }
 }
@@ -81,7 +81,6 @@ function guess(input) {
     }
 
     game.round--;
-
 
     if (game.running) {
 
